@@ -3,398 +3,1275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decipher Learning - The Future of Personalized Programming Education</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/public/css/style.css">
+    <title>Decipher Learning - Personalized Programming Education</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 100%);
+            color: #333;
+        }
+
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37,99,235,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: white;
+            min-height: calc(100vh - 73px);
+            padding: 2rem 1rem;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            margin: 0.3rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background: #f3f4f6;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            transition: width 0.5s ease;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .course-header {
+            padding: 1.5rem;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .course-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .course-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-progress-fill {
+            height: 100%;
+            background: #2563eb;
+            transition: width 0.5s ease;
+        }
+
+        .course-footer {
+            padding: 1rem 1.5rem;
+            background: #f9fafb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .path-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .path-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .path-header {
+            padding: 2rem;
+            color: white;
+        }
+
+        .path-header.frontend {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        }
+
+        .path-header.data {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        }
+
+        .path-header.ai {
+            background: linear-gradient(135deg, #f97316, #ef4444);
+        }
+
+        .path-header.fullstack {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .path-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .path-body {
+            padding: 1.5rem;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-badge {
+            background: #e5e7eb;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #374151;
+        }
+
+        .code-editor-container {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .editor-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .editor-tab {
+            padding: 0.6rem 1.2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s;
+        }
+
+        .editor-tab.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+
+        .code-editor {
+            width: 100%;
+            min-height: 300px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #1e293b;
+            color: #e2e8f0;
+            resize: vertical;
+        }
+
+        .editor-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .output-panel {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            min-height: 100px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .achievement-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .achievement-card.earned {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            border: 2px solid #fbbf24;
+        }
+
+        .achievement-card.locked {
+            opacity: 0.6;
+            filter: grayscale(1);
+        }
+
+        .achievement-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .achievement-card.locked .achievement-icon {
+            background: #9ca3af;
+        }
+
+        .certificate-card {
+            background: linear-gradient(135deg, #eff6ff, #e0e7ff);
+            border: 3px solid #3b82f6;
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .certificate-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .certificate-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .leaderboard-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px 120px;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .leaderboard-row:hover {
+            background: #f9fafb;
+        }
+
+        .leaderboard-row.header {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            font-weight: bold;
+        }
+
+        .rank {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .rank.first { color: #fbbf24; }
+        .rank.second { color: #9ca3af; }
+        .rank.third { color: #cd7f32; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .quiz-option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-height: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .leaderboard-row {
+                grid-template-columns: 60px 1fr 100px;
+            }
+
+            .leaderboard-row > div:last-child {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Decipher Learning</span>
-                </div>
-                <div class="nav-links">
-                    <a href="#">Home</a>
-                    <a href="#">Community</a>
-                    <a href="#">About</a>
-                    <a href="#">Contact</a>
-                </div>
-                <div class="auth-buttons">
-                    <button class="btn btn-outline" id="loginBtn">Sign In</button>
-                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
-                </div>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">💻</div>
+            <span>Decipher Learning</span>
+        </div>
+        <div class="header-nav">
+            <button class="btn btn-secondary">Help</button>
+            <button class="btn btn-primary">Upgrade Pro</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <nav id="navigation">
+                <div class="nav-item active" data-page="dashboard">🏠 Dashboard</div>
+                <div class="nav-item" data-page="paths">🎯 Learning Paths</div>
+                <div class="nav-item" data-page="courses">📚 All Courses</div>
+                <div class="nav-item" data-page="practice">💻 Code Practice</div>
+                <div class="nav-item" data-page="quiz">❓ Take Quiz</div>
+                <div class="nav-item" data-page="leaderboard">🏆 Leaderboard</div>
+                <div class="nav-item" data-page="certificates">🎓 Certificates</div>
+                <div class="nav-item" data-page="community">👥 Community</div>
             </nav>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>The Future of Personalized Programming Education</h1>
-                <p>Learn any programming language, framework, or library with AI-powered personalized learning paths, interactive coding exercises, and verifiable certificates.</p>
-                <div class="hero-buttons">
-                    <button class="btn btn-light">Explore Courses</button>
-                    <button class="btn btn-outline">Take a Tour</button>
+        <div class="main-content">
+            <div id="dashboard" class="page">
+                <div class="welcome-section">
+                    <h1>Welcome back, Alex Johnson! 🚀</h1>
+                    <p>Ready to continue your learning journey?</p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="level">12</div>
+                            <div class="stat-label">Current Level</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="xp">2850</div>
+                            <div class="stat-label">Total XP</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value"><span id="streak">7</span> 🔥</div>
+                            <div class="stat-label">Day Streak</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="certificateCount">2</div>
+                            <div class="stat-label">Certificates</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span>Level <span id="currentLevel">12</span> Progress</span>
+                        <span><span id="currentXP">2850</span>/<span id="nextLevelXP">3000</span> XP</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="levelProgress" style="width: 95%"></div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Continue Learning</h2>
+                <div class="courses-grid" id="currentCourses"></div>
+
+                <h2 class="section-title">⚡ AI Recommended for You</h2>
+                <div class="courses-grid" id="recommendedCourses"></div>
+
+                <h2 class="section-title">Recent Achievements</h2>
+                <div class="achievements-grid" id="achievements"></div>
+            </div>
+
+            <div id="paths" class="page hidden">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Choose Your Learning Path</h1>
+                    <p style="font-size: 1.1rem; color: #666;">Select a career-focused roadmap tailored to your goals</p>
+                </div>
+                <div class="courses-grid" id="learningPaths"></div>
+            </div>
+
+            <div id="courses" class="page hidden">
+                <h1 class="section-title">All Courses</h1>
+                <div class="courses-grid" id="allCourses"></div>
+            </div>
+
+            <div id="practice" class="page hidden">
+                <h1 class="section-title">Interactive Code Practice</h1>
+                <div class="code-editor-container">
+                    <h3 style="margin-bottom: 1rem;">Challenge: Create a Function to Reverse a String</h3>
+                    <div class="editor-tabs">
+                        <button class="editor-tab active" data-lang="javascript">JavaScript</button>
+                        <button class="editor-tab" data-lang="python">Python</button>
+                        <button class="editor-tab" data-lang="html">HTML/CSS</button>
+                    </div>
+                    <textarea class="code-editor" id="codeEditor" spellcheck="false">// Write your code here
+function reverseString(str) {
+    // Your solution here
+    return str;
+}
+
+// Test your function
+console.log(reverseString("Hello World"));</textarea>
+                    <div class="editor-actions">
+                        <button class="btn btn-primary" onclick="runCode()">▶ Run Code</button>
+                        <button class="btn btn-secondary" onclick="resetCode()">Reset</button>
+                        <button class="btn btn-secondary" onclick="submitCode()">Submit Solution</button>
+                    </div>
+                    <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Output:</h4>
+                    <div class="output-panel" id="output">Click "Run Code" to see output...</div>
+                </div>
+            </div>
+
+            <div id="quiz" class="page hidden">
+                <h1 class="section-title">JavaScript Quiz</h1>
+                <div class="quiz-container">
+                    <div class="quiz-question" id="quizQuestion">Loading question...</div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                    <div style="margin-top: 2rem; display: flex; justify-content: space-between;">
+                        <button class="btn btn-secondary" onclick="previousQuestion()">← Previous</button>
+                        <span id="quizProgress">Question 1 of 5</span>
+                        <button class="btn btn-primary" onclick="nextQuestion()">Next →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="leaderboard" class="page hidden">
+                <h1 class="section-title">Global Leaderboard 🏆</h1>
+                <div class="leaderboard-table" id="leaderboardTable"></div>
+            </div>
+
+            <div id="certificates" class="page hidden">
+                <h1 class="section-title">My Certificates</h1>
+                <div class="courses-grid" id="certificatesGrid"></div>
+            </div>
+
+            <div id="community" class="page hidden">
+                <h1 class="section-title">Community Hub</h1>
+                <div style="text-align: center; padding: 4rem; background: white; border-radius: 12px;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">👥</div>
+                    <h2 style="margin-bottom: 1rem;">Connect with Fellow Learners</h2>
+                    <p style="color: #666; margin-bottom: 2rem;">Join study groups, participate in discussions, and get help from mentors</p>
+                    <button class="btn btn-primary">Join Community</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Features Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose Decipher Learning?</h2>
-                <p>Our platform combines cutting-edge technology with proven educational methods to deliver the most effective learning experience.</p>
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Course Details</h2>
+                <button class="close-modal" onclick="closeModal()">×</button>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI-Powered Personalization</h3>
-                    <p>Our AI engine analyzes your learning patterns and adapts the curriculum to match your skill level and goals.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Interactive Coding Environment</h3>
-                    <p>Write, run, and test code directly in your browser with instant feedback and debugging assistance.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Progress Tracking & Analytics</h3>
-                    <p>Visualize your learning journey with detailed progress reports and personalized improvement recommendations.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <h3>Gamified Learning Experience</h3>
-                    <p>Earn points, badges, and climb leaderboards as you complete lessons and master new concepts.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Community & Mentorship</h3>
-                    <p>Connect with peers, join study groups, and get guidance from experienced programming mentors.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h3>Verifiable Certificates</h3>
-                    <p>Earn blockchain-verified certificates that prove your skills to employers and advance your career.</p>
-                </div>
-            </div>
+            <div id="modalBody"></div>
         </div>
-    </section>
+    </div>
 
-    <!-- Onboarding Steps (Initially Hidden) -->
-    <section class="section">
-        <div class="container">
-            <div class="onboarding-container" id="onboardingContainer">
-                <div class="onboarding-header">
-                    <h2>Set Up Your Learning Profile</h2>
-                    <p>Help us personalize your learning experience by answering a few questions</p>
-                </div>
-                
-                <div class="stepper">
-                    <div class="step active" data-step="1">
-                        <div class="step-number">1</div>
-                        <div class="step-label">Goal</div>
-                    </div>
-                    <div class="step" data-step="2">
-                        <div class="step-number">2</div>
-                        <div class="step-label">Experience</div>
-                    </div>
-                    <div class="step" data-step="3">
-                        <div class="step-number">3</div>
-                        <div class="step-label">Interests</div>
-                    </div>
-                    <div class="step" data-step="4">
-                        <div class="step-number">4</div>
-                        <div class="step-label">Schedule</div>
-                    </div>
-                    <div class="step" data-step="5">
-                        <div class="step-number">5</div>
-                        <div class="step-label">Review</div>
-                    </div>
-                </div>
-                
-                <!-- Step 1: Learning Goal -->
-                <div class="step-content active" id="step1">
-                    <h3>What is your primary learning goal?</h3>
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="radio" name="goal" value="career">
-                                <span>Start a new career in tech</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="goal" value="skills">
-                                <span>Improve current job skills</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="goal" value="personal">
-                                <span>Personal interest & hobby</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="goal" value="academic">
-                                <span>Academic studies</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="onboarding-actions">
-                        <div></div> <!-- Empty div for spacing -->
-                        <button class="btn btn-primary next-step" data-next="2">Next</button>
-                    </div>
-                </div>
-                
-                <!-- Step 2: Experience Level -->
-                <div class="step-content" id="step2">
-                    <h3>What is your current experience level?</h3>
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="radio" name="experience" value="beginner">
-                                <span>Beginner - Just starting out</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="experience" value="intermediate">
-                                <span>Intermediate - Some coding experience</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="experience" value="advanced">
-                                <span>Advanced - Comfortable with programming concepts</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="experience" value="expert">
-                                <span>Expert - Professional developer</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="onboarding-actions">
-                        <button class="btn btn-outline prev-step" data-prev="1">Back</button>
-                        <button class="btn btn-primary next-step" data-next="3">Next</button>
-                    </div>
-                </div>
-                
-                <!-- Step 3: Programming Interests -->
-                <div class="step-content" id="step3">
-                    <h3>What areas are you most interested in?</h3>
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="interests" value="web">
-                                <span>Web Development</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="interests" value="mobile">
-                                <span>Mobile App Development</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="interests" value="data">
-                                <span>Data Science & Analytics</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="interests" value="ai">
-                                <span>AI & Machine Learning</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="interests" value="game">
-                                <span>Game Development</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="interests" value="devops">
-                                <span>DevOps & Cloud</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="onboarding-actions">
-                        <button class="btn btn-outline prev-step" data-prev="2">Back</button>
-                        <button class="btn btn-primary next-step" data-next="4">Next</button>
-                    </div>
-                </div>
-                
-                <!-- Step 4: Learning Schedule -->
-                <div class="step-content" id="step4">
-                    <h3>What's your preferred learning schedule?</h3>
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="radio" name="schedule" value="intensive">
-                                <span>Intensive - Full-time commitment</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="schedule" value="part-time">
-                                <span>Part-time - 10-15 hours per week</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="schedule" value="casual">
-                                <span>Casual - 5-10 hours per week</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="radio" name="schedule" value="flexible">
-                                <span>Flexible - Learn when I can</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="onboarding-actions">
-                        <button class="btn btn-outline prev-step" data-prev="3">Back</button>
-                        <button class="btn btn-primary next-step" data-next="5">Next</button>
-                    </div>
-                </div>
-                
-                <!-- Step 5: Review & Confirm -->
-                <div class="step-content" id="step5">
-                    <h3>Review your preferences</h3>
-                    <div class="form-group">
-                        <div id="review-summary">
-                            <!-- Summary will be populated by JavaScript -->
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="newsletter" class="checkbox-item">
-                            <input type="checkbox" id="newsletter">
-                            <span>Send me learning tips and course recommendations</span>
-                        </label>
-                    </div>
-                    <div class="onboarding-actions">
-                        <button class="btn btn-outline prev-step" data-prev="4">Back</button>
-                        <button class="btn btn-primary" id="complete-onboarding">Complete Setup & Go to Dashboard</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <script>
+        const userData = {
+            name: "Alex Johnson",
+            level: 12,
+            xp: 2850,
+            nextLevelXp: 3000,
+            streak: 7,
+            coursesCompleted: 3,
+            certificates: 2
+        };
 
-    <!-- Dashboard Preview -->
-    <section class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Your Personalized Learning Dashboard</h2>
-                <p>Track your progress, access recommended content, and manage your learning journey all in one place.</p>
-            </div>
-            <div class="dashboard-preview">
-                <div class="dashboard-header">
-                    <div>Welcome to Your Dashboard!</div>
-                    <div>XP: 0 | Level: 1</div>
+        const currentCourses = [
+            { id: 1, title: "JavaScript Fundamentals", progress: 65, lessons: 24, completed: 16, nextLesson: "Async/Await & Promises" },
+            { id: 2, title: "React Basics", progress: 30, lessons: 18, completed: 5, nextLesson: "State Management with Hooks" },
+            { id: 3, title: "Web Design Principles", progress: 85, lessons: 12, completed: 10, nextLesson: "Responsive Design Patterns" }
+        ];
+
+        const recommendedCourses = [
+            { id: 1, title: "Advanced JavaScript Patterns", difficulty: "Intermediate", duration: "4 weeks", rating: 4.8 },
+            { id: 2, title: "TypeScript for Beginners", difficulty: "Beginner", duration: "3 weeks", rating: 4.9 },
+            { id: 3, title: "Node.js Backend Development", difficulty: "Intermediate", duration: "6 weeks", rating: 4.7 }
+        ];
+
+        const allCourses = [
+            { title: "HTML & CSS Basics", rating: 4.8, reviews: 2300 },
+            { title: "JavaScript Mastery", rating: 4.9, reviews: 3100 },
+            { title: "React Complete Guide", rating: 4.7, reviews: 2800 },
+            { title: "Python for Data Science", rating: 4.8, reviews: 2600 },
+            { title: "Node.js Backend", rating: 4.6, reviews: 1900 },
+            { title: "Machine Learning Intro", rating: 4.9, reviews: 2200 },
+            { title: "SQL Database Design", rating: 4.7, reviews: 2100 },
+            { title: "UI/UX Design", rating: 4.8, reviews: 1800 },
+            { title: "Git & GitHub", rating: 4.9, reviews: 3400 }
+        ];
+
+        const learningPaths = [
+            { id: 1, title: "Frontend Developer", icon: "🎨", duration: "6 months", courses: 8, skills: ["HTML", "CSS", "JavaScript", "React", "Next.js"], color: "frontend" },
+            { id: 2, title: "Data Scientist", icon: "📊", duration: "8 months", courses: 10, skills: ["Python", "Pandas", "NumPy", "Machine Learning", "SQL"], color: "data" },
+            { id: 3, title: "AI Engineer", icon: "🤖", duration: "10 months", courses: 12, skills: ["Python", "TensorFlow", "PyTorch", "NLP", "Computer Vision"], color: "ai" },
+            { id: 4, title: "Full Stack Developer", icon: "⚡", duration: "9 months", courses: 14, skills: ["JavaScript", "Node.js", "React", "MongoDB", "PostgreSQL"], color: "fullstack" }
+        ];
+
+        const achievements = [
+            { id: 1, title: "First Steps", description: "Complete your first lesson", earned: true, icon: "🎯" },
+            { id: 2, title: "Week Warrior", description: "7-day learning streak", earned: true, icon: "🔥" },
+            { id: 3, title: "Code Master", description: "Complete 100 coding exercises", earned: false, icon: "💻" },
+            { id: 4, title: "Certificate Champion", description: "Earn your first certificate", earned: true, icon: "🏆" }
+        ];
+
+        const leaderboardData = [
+            { rank: 1, name: "Sarah Chen", xp: 15420, level: 28 },
+            { rank: 2, name: "Michael Park", xp: 14890, level: 27 },
+            { rank: 3, name: "Emma Rodriguez", xp: 13650, level: 25 },
+            { rank: 4, name: "You (Alex Johnson)", xp: 2850, level: 12 },
+            { rank: 5, name: "James Wilson", xp: 2340, level: 11 },
+            { rank: 6, name: "Lisa Anderson", xp: 2120, level: 10 },
+            { rank: 7, name: "David Kim", xp: 1980, level: 10 },
+            { rank: 8, name: "Maria Garcia", xp: 1850, level: 9 }
+        ];
+
+        const quizQuestions = [
+            {
+                question: "What is the correct syntax to create a function in JavaScript?",
+                options: ["function myFunction()", "def myFunction():", "function:myFunction()", "create myFunction()"],
+                correct: 0
+            },
+            {
+                question: "Which method is used to add an element to the end of an array?",
+                options: ["append()", "push()", "add()", "insert()"],
+                correct: 1
+            },
+            {
+                question: "What does DOM stand for?",
+                options: ["Document Object Model", "Data Object Management", "Digital Optimization Method", "Document Oriented Mapping"],
+                correct: 0
+            },
+            {
+                question: "Which keyword is used to declare a constant in JavaScript?",
+                options: ["var", "let", "const", "constant"],
+                correct: 2
+            },
+            {
+                question: "What is the output of: console.log(typeof [])?",
+                options: ["array", "object", "list", "undefined"],
+                correct: 1
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizAnswers = [];
+        let selectedPath = null;
+
+        function init() {
+            renderCurrentCourses();
+            renderRecommendedCourses();
+            renderAchievements();
+            renderLearningPaths();
+            renderAllCourses();
+            renderLeaderboard();
+            renderCertificates();
+            loadQuiz();
+            setupNavigation();
+            updateProgressBar();
+        }
+
+        function setupNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const page = item.getAttribute('data-page');
+                    navigateToPage(page);
+                });
+            });
+        }
+
+        function navigateToPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(page).classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-page') === page) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        function updateProgressBar() {
+            const percentage = (userData.xp / userData.nextLevelXp) * 100;
+            document.getElementById('levelProgress').style.width = percentage + '%';
+        }
+
+        function renderCurrentCourses() {
+            const container = document.getElementById('currentCourses');
+            container.innerHTML = currentCourses.map(course => `
+                <div class="course-card" onclick="openCourseModal(${course.id})">
+                    <div class="course-header">
+                        <h3 class="course-title">${course.title}</h3>
+                        <div class="course-meta">
+                            <span>📚 ${course.lessons} lessons</span>
+                            <span>• Next: ${course.nextLesson}</span>
+                        </div>
+                        <div class="course-progress-bar">
+                            <div class="course-progress-fill" style="width: ${course.progress}%"></div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #666;">${course.completed}/${course.lessons} completed</div>
+                    </div>
+                    <div class="course-footer">
+                        <span style="font-weight: 600; color: #2563eb;">${course.progress}%</span>
+                        <button class="btn btn-primary" onclick="event.stopPropagation(); continueCourse(${course.id})">Continue</button>
+                    </div>
                 </div>
-                <div class="dashboard-body">
-                    <div class="dashboard-main">
-                        <div class="dashboard-widget">
-                            <h4>Recommended Learning Path</h4>
-                            <p>Based on your interests, we recommend:</p>
-                            <ul style="margin-top: 10px; padding-left: 20px;">
-                                <li>Complete the onboarding to get personalized recommendations</li>
-                            </ul>
-                        </div>
-                        <div class="dashboard-widget">
-                            <h4>Continue Learning</h4>
-                            <p>You haven't started any courses yet.</p>
-                            <button class="btn btn-primary" style="margin-top: 15px;">Browse Courses</button>
-                        </div>
-                        <div class="dashboard-widget">
-                            <h4>Weekly Goals</h4>
-                            <p>Complete your profile to set weekly learning goals</p>
-                            <div class="path-progress" style="height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; margin-top: 10px;">
-                                <div class="progress-bar" style="height: 100%; background: var(--accent); border-radius: 4px; width: 0%;"></div>
-                            </div>
-                        </div>
-                        <div class="dashboard-widget">
-                            <h4>Recent Achievements</h4>
-                            <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                <div style="background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div>
-                                    <p style="font-weight: bold;">Getting Started</p>
-                                    <p style="font-size: 0.8rem;">Joined Decipher Learning</p>
-                                </div>
-                            </div>
+            `).join('');
+        }
+
+        function renderRecommendedCourses() {
+            const container = document.getElementById('recommendedCourses');
+            container.innerHTML = recommendedCourses.map(course => `
+                <div class="course-card" style="background: linear-gradient(135deg, #f3e8ff, #dbeafe); border: 2px solid #c084fc;">
+                    <div class="course-header">
+                        <h3 class="course-title">${course.title}</h3>
+                        <div class="course-meta">
+                            <span style="background: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;">${course.difficulty}</span>
+                            <span>⏱️ ${course.duration}</span>
+                            <span>⭐ ${course.rating}</span>
                         </div>
                     </div>
-                    <div class="dashboard-sidebar">
-                        <div class="dashboard-widget">
-                            <h4>Learning Stats</h4>
-                            <p>Total Time: 0 hours</p>
-                            <p>Courses Completed: 0</p>
-                            <p>Current Streak: 0 days</p>
-                        </div>
-                        <div class="dashboard-widget">
-                            <h4>Community Activity</h4>
-                            <p>Join the community to see activity</p>
-                            <button class="btn btn-outline" style="width: 100%; margin-top: 10px;">Explore Community</button>
-                        </div>
+                    <div class="course-footer" style="background: white;">
+                        <span></span>
+                        <button class="btn btn-primary" style="background: linear-gradient(135deg, #7c3aed, #a855f7);" onclick="startCourse(${course.id})">Start Course</button>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            `).join('');
+        }
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Decipher Learning</h3>
-                    <p>The future of personalized programming education. Learn smarter, code better.</p>
-                    <div style="display: flex; gap: 15px; margin-top: 20px;">
-                        <a href="#" style="color: white;"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" style="color: white;"><i class="fab fa-twitter"></i></a>
-                        <a href="#" style="color: white;"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" style="color: white;"><i class="fab fa-github"></i></a>
+        function renderAchievements() {
+            const container = document.getElementById('achievements');
+            container.innerHTML = achievements.map(achievement => `
+                <div class="achievement-card ${achievement.earned ? 'earned' : 'locked'}">
+                    <div class="achievement-icon">${achievement.icon}</div>
+                    <div>
+                        <h4 style="font-weight: bold; margin-bottom: 0.3rem;">${achievement.title}</h4>
+                        <p style="font-size: 0.85rem; color: #666;">${achievement.description}</p>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Platform</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Courses</a></li>
-                        <li><a href="#">Learning Paths</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Certificates</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Tutorials</a></li>
-                        <li><a href="#">Community</a></li>
-                        <li><a href="#">Career Hub</a></li>
-                        <li><a href="#">Help Center</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Decipher Learning. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+            `).join('');
+        }
 
+        function renderLearningPaths() {
+            const container = document.getElementById('learningPaths');
+            container.innerHTML = learningPaths.map(path => `
+                <div class="path-card">
+                    <div class="path-header ${path.color}">
+                        <div class="path-title">
+                            <span style="font-size: 2rem;">${path.icon}</span>
+                            ${path.title}
+                        </div>
+                        <div style="display: flex; gap: 1rem; font-size: 0.9rem;">
+                            <span style="background: rgba(255,255,255,0.2); padding: 0.4rem 0.8rem; border-radius: 20px;">${path.duration}</span>
+                            <span style="background: rgba(255,255,255,0.2); padding: 0.4rem 0.8rem; border-radius: 20px;">${path.courses} courses</span>
+                        </div>
+                    </div>
+                    <div class="path-body">
+                        <h4 style="font-weight: bold; margin-bottom: 1rem;">Skills You'll Learn:</h4>
+                        <div class="skills-container">
+                            ${path.skills.map(skill => `<span class="skill-badge">${skill}</span>`).join('')}
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="selectPath(${path.id})">
+                            ${selectedPath === path.id ? '✓ Selected' : 'Start This Path'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-    <!-- JS links -->
-     <script src="/public/js/script.js"></script>
+        function renderAllCourses() {
+            const container = document.getElementById('allCourses');
+            container.innerHTML = allCourses.map((course, idx) => `
+                <div class="course-card">
+                    <div style="height: 120px; background: linear-gradient(135deg, #${Math.floor(Math.random()*16777215).toString(16)}, #${Math.floor(Math.random()*16777215).toString(16)});"></div>
+                    <div class="course-header">
+                        <h3 class="course-title">${course.title}</h3>
+                        <div class="course-meta">
+                            <span>⭐ ${course.rating}</span>
+                            <span>(${course.reviews.toLocaleString()} reviews)</span>
+                        </div>
+                    </div>
+                    <div class="course-footer">
+                        <span></span>
+                        <button class="btn btn-primary" onclick="viewCourse(${idx})">View Course</button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
+        function renderLeaderboard() {
+            const container = document.getElementById('leaderboardTable');
+            let html = `
+                <div class="leaderboard-row header">
+                    <div>Rank</div>
+                    <div>Name</div>
+                    <div>XP</div>
+                    <div>Level</div>
+                </div>
+            `;
+            html += leaderboardData.map(user => `
+                <div class="leaderboard-row" style="${user.name.includes('You') ? 'background: #fef3c7; font-weight: bold;' : ''}">
+                    <div class="rank ${user.rank === 1 ? 'first' : user.rank === 2 ? 'second' : user.rank === 3 ? 'third' : ''}">#${user.rank}</div>
+                    <div>${user.name}</div>
+                    <div>${user.xp.toLocaleString()} XP</div>
+                    <div>Level ${user.level}</div>
+                </div>
+            `).join('');
+            container.innerHTML = html;
+        }
+
+        function renderCertificates() {
+            const container = document.getElementById('certificatesGrid');
+            container.innerHTML = `
+                <div class="certificate-card">
+                    <div class="certificate-content">
+                        <div class="certificate-icon">🏆</div>
+                        <h2 style="font-size: 1.8rem; font-weight: bold; margin-bottom: 0.5rem; color: #1f2937;">JavaScript Fundamentals</h2>
+                        <p style="color: #666; margin-bottom: 1rem;">Completed on Oct 15, 2024</p>
+                        <div style="background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                            <p style="font-size: 0.85rem; color: #666;">Certificate ID: DCL-JS-2024-12842</p>
+                        </div>
+                        <button class="btn btn-primary">Download Certificate</button>
+                    </div>
+                </div>
+                <div class="certificate-card" style="background: linear-gradient(135deg, #d1fae5, #d9f99d); border-color: #10b981;">
+                    <div class="certificate-content">
+                        <div class="certificate-icon" style="background: linear-gradient(135deg, #10b981, #059669);">🎨</div>
+                        <h2 style="font-size: 1.8rem; font-weight: bold; margin-bottom: 0.5rem; color: #1f2937;">HTML & CSS Mastery</h2>
+                        <p style="color: #666; margin-bottom: 1rem;">Completed on Sep 28, 2024</p>
+                        <div style="background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                            <p style="font-size: 0.85rem; color: #666;">Certificate ID: DCL-HTML-2024-12731</p>
+                        </div>
+                        <button class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669);">Download Certificate</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function loadQuiz() {
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const question = quizQuestions[currentQuizIndex];
+            document.getElementById('quizQuestion').textContent = question.question;
+            document.getElementById('quizProgress').textContent = `Question ${currentQuizIndex + 1} of ${quizQuestions.length}`;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = question.options.map((option, idx) => `
+                <div class="quiz-option ${quizAnswers[currentQuizIndex] === idx ? 'selected' : ''}" onclick="selectOption(${idx})">
+                    ${String.fromCharCode(65 + idx)}. ${option}
+                </div>
+            `).join('');
+        }
+
+        function selectOption(idx) {
+            quizAnswers[currentQuizIndex] = idx;
+            displayQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                currentQuizIndex++;
+                displayQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuizIndex > 0) {
+                currentQuizIndex--;
+                displayQuestion();
+            }
+        }
+
+        function showQuizResults() {
+            let correct = 0;
+            quizQuestions.forEach((q, idx) => {
+                if (quizAnswers[idx] === q.correct) correct++;
+            });
+            
+            const percentage = (correct / quizQuestions.length) * 100;
+            alert(`Quiz Complete!\n\nYou scored ${correct} out of ${quizQuestions.length} (${percentage.toFixed(0)}%)\n\n${percentage >= 70 ? '🎉 Congratulations! You passed!' : '📚 Keep learning and try again!'}`);
+            
+            userData.xp += 100;
+            document.getElementById('xp').textContent = userData.xp;
+            document.getElementById('currentXP').textContent = userData.xp;
+            updateProgressBar();
+            
+            currentQuizIndex = 0;
+            quizAnswers = [];
+            displayQuestion();
+        }
+
+        function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            const output = document.getElementById('output');
+            
+            let logs = [];
+            const originalLog = console.log;
+            console.log = function() {
+                logs.push(Array.from(arguments).join(' '));
+            };
+            
+            try {
+                eval(code);
+                output.textContent = logs.length > 0 ? logs.join('\n') : 'Code executed successfully (no output)';
+                output.style.color = '#10b981';
+            } catch (error) {
+                output.textContent = `Error: ${error.message}`;
+                output.style.color = '#ef4444';
+            } finally {
+                console.log = originalLog;
+            }
+        }
+
+        function resetCode() {
+            document.getElementById('codeEditor').value = `// Write your code here
+function reverseString(str) {
+    // Your solution here
+    return str;
+}
+
+// Test your function
+console.log(reverseString("Hello World"));`;
+            document.getElementById('output').textContent = 'Click "Run Code" to see output...';
+            document.getElementById('output').style.color = '#666';
+        }
+
+        function submitCode() {
+            const code = document.getElementById('codeEditor').value;
+            
+            if (code.includes('return') && code.includes('reverseString')) {
+                alert('🎉 Great job! Your solution has been submitted.\n\n+50 XP earned!');
+                userData.xp += 50;
+                document.getElementById('xp').textContent = userData.xp;
+                document.getElementById('currentXP').textContent = userData.xp;
+                updateProgressBar();
+            } else {
+                alert('❌ Please complete the function before submitting.');
+            }
+        }
+
+        document.querySelectorAll('.editor-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.editor-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const lang = this.getAttribute('data-lang');
+                const editor = document.getElementById('codeEditor');
+                
+                if (lang === 'python') {
+                    editor.value = `# Write your Python code here
+def reverse_string(text):
+    # Your solution here
+    return text
+
+# Test your function
+print(reverse_string("Hello World"))`;
+                } else if (lang === 'html') {
+                    editor.value = `<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial; }
+        .container { padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello World!</h1>
+    </div>
+</body>
+</html>`;
+                } else {
+                    resetCode();
+                }
+            });
+        });
+
+        function openCourseModal(courseId) {
+            const course = currentCourses.find(c => c.id === courseId);
+            document.getElementById('modalTitle').textContent = course.title;
+            document.getElementById('modalBody').innerHTML = `
+                <p style="margin-bottom: 1rem; color: #666;">Progress: ${course.progress}% completed</p>
+                <h3 style="margin-bottom: 1rem;">Next Lesson: ${course.nextLesson}</h3>
+                <p style="margin-bottom: 1.5rem;">Continue learning about ${course.nextLesson} and master the fundamentals of modern programming.</p>
+                <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <strong>Course Stats:</strong><br>
+                    📚 ${course.lessons} total lessons<br>
+                    ✅ ${course.completed} completed<br>
+                    ⏱️ ~${Math.floor(Math.random() * 10) + 15} hours remaining
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="continueCourse(${courseId}); closeModal();">Continue Learning</button>
+            `;
+            document.getElementById('courseModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('courseModal').classList.remove('active');
+        }
+
+        function continueCourse(id) {
+            alert(`🚀 Continuing course... Opening lesson player!\n\n+10 XP for starting a lesson!`);
+            userData.xp += 10;
+            document.getElementById('xp').textContent = userData.xp;
+            document.getElementById('currentXP').textContent = userData.xp;
+            updateProgressBar();
+        }
+
+        function startCourse(id) {
+            alert(`🎉 Welcome to your new course!\n\nYou've been enrolled successfully.\n\n+25 XP bonus!`);
+            userData.xp += 25;
+            document.getElementById('xp').textContent = userData.xp;
+            document.getElementById('currentXP').textContent = userData.xp;
+            updateProgressBar();
+        }
+
+        function selectPath(id) {
+            selectedPath = id;
+            renderLearningPaths();
+            alert(`✅ Learning path selected!\n\nYour personalized roadmap has been created.\n\n+50 XP for setting your goals!`);
+            userData.xp += 50;
+            document.getElementById('xp').textContent = userData.xp;
+            document.getElementById('currentXP').textContent = userData.xp;
+            updateProgressBar();
+        }
+
+        function viewCourse(idx) {
+            const course = allCourses[idx];
+            alert(`📚 ${course.title}\n\n⭐ Rating: ${course.rating}\n👥 ${course.reviews.toLocaleString()} students\n\nClick "Start Course" to begin learning!`);
+        }
+
+        document.getElementById('courseModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
